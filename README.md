@@ -55,6 +55,7 @@ Campo de texto customizado para login com:
 - Suporte a ícones prefixo/sufixo
 - Feedback visual de foco
 
+
 ### AnimatedNameField
 Campo de nome animado para onboarding com:
 - Animação de borda
