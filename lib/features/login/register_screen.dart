@@ -56,114 +56,134 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ],
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(height: 32),
-                Icon(
-                  Icons.person_add_outlined,
-                  size: 80,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                const SizedBox(height: 32),
-                LoginTextFormField(
-                  controller: _nameController,
-                  label: 'Nome',
-                  hintText: 'Digite seu nome completo',
-                  keyboardType: TextInputType.name,
-                  prefixIcon: Icons.person_outline,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor, digite seu nome';
-                    }
-                    if (value.length < 3) {
-                      return 'O nome deve ter pelo menos 3 caracteres';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 16),
-                LoginTextFormField(
-                  controller: _emailController,
-                  label: 'E-mail',
-                  hintText: 'Digite seu e-mail',
-                  keyboardType: TextInputType.emailAddress,
-                  prefixIcon: Icons.email_outlined,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor, digite seu e-mail';
-                    }
-                    if (!value.contains('@') || !value.contains('.')) {
-                      return 'Digite um e-mail válido';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 16),
-                LoginTextFormField(
-                  controller: _passwordController,
-                  label: 'Senha',
-                  hintText: 'Digite sua senha',
-                  obscureText: _obscurePassword,
-                  prefixIcon: Icons.lock_outline,
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _obscurePassword
-                          ? Icons.visibility_outlined
-                          : Icons.visibility_off_outlined,
-                    ),
-                    onPressed: _togglePasswordVisibility,
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(24.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 32),
+                  Icon(
+                    Icons.person_add_outlined,
+                    size: 80,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor, digite sua senha';
-                    }
-                    if (value.length < 6) {
-                      return 'A senha deve ter pelo menos 6 caracteres';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 16),
-                LoginTextFormField(
-                  controller: _confirmPasswordController,
-                  label: 'Confirmar Senha',
-                  hintText: 'Digite sua senha novamente',
-                  obscureText: _obscureConfirmPassword,
-                  prefixIcon: Icons.lock_outline,
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _obscureConfirmPassword
-                          ? Icons.visibility_outlined
-                          : Icons.visibility_off_outlined,
+                  const SizedBox(height: 32),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: LoginTextFormField(
+                      controller: _nameController,
+                      label: 'Nome',
+                      hintText: 'Digite seu nome completo',
+                      keyboardType: TextInputType.name,
+                      prefixIcon: Icons.person_outline,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor, digite seu nome';
+                        }
+                        if (value.length < 3) {
+                          return 'O nome deve ter pelo menos 3 caracteres';
+                        }
+                        return null;
+                      },
                     ),
-                    onPressed: _toggleConfirmPasswordVisibility,
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor, confirme sua senha';
-                    }
-                    if (value != _passwordController.text) {
-                      return 'As senhas não coincidem';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 24),
-                ElevatedButton(
-                  onPressed: _handleRegister,
-                  child: const Text('Registrar'),
-                ),
-                const SizedBox(height: 16),
-                TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('Já tenho uma conta'),
-                ),
-              ],
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: LoginTextFormField(
+                      controller: _emailController,
+                      label: 'E-mail',
+                      hintText: 'Digite seu e-mail',
+                      keyboardType: TextInputType.emailAddress,
+                      prefixIcon: Icons.email_outlined,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor, digite seu e-mail';
+                        }
+                        if (!value.contains('@') || !value.contains('.')) {
+                          return 'Digite um e-mail válido';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: LoginTextFormField(
+                      controller: _passwordController,
+                      label: 'Senha',
+                      hintText: 'Digite sua senha',
+                      obscureText: _obscurePassword,
+                      prefixIcon: Icons.lock_outline,
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscurePassword
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
+                        ),
+                        onPressed: _togglePasswordVisibility,
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor, digite sua senha';
+                        }
+                        if (value.length < 6) {
+                          return 'A senha deve ter pelo menos 6 caracteres';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: LoginTextFormField(
+                      controller: _confirmPasswordController,
+                      label: 'Confirmar Senha',
+                      hintText: 'Digite sua senha novamente',
+                      obscureText: _obscureConfirmPassword,
+                      prefixIcon: Icons.lock_outline,
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscureConfirmPassword
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
+                        ),
+                        onPressed: _toggleConfirmPasswordVisibility,
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor, confirme sua senha';
+                        }
+                        if (value != _passwordController.text) {
+                          return 'As senhas não coincidem';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: ElevatedButton(
+                      onPressed: _handleRegister,
+                      child: const Text('Registrar'),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: TextButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: const Text('Já tenho uma conta'),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

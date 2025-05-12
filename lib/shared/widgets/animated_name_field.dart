@@ -25,6 +25,7 @@ class _AnimatedNameFieldState extends State<AnimatedNameField>
   late Animation<double> _iconAnimation;
   bool _isFocused = false;
   bool _isValid = false;
+  late FocusNode _focusNode;
 
   @override
   void initState() {
@@ -39,18 +40,24 @@ class _AnimatedNameFieldState extends State<AnimatedNameField>
     _iconAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
     );
+    _focusNode = widget.focusNode ?? FocusNode();
+    _focusNode.addListener(_handleFocusChange);
   }
 
   @override
   void dispose() {
+    _focusNode.removeListener(_handleFocusChange);
+    if (widget.focusNode == null) {
+      _focusNode.dispose();
+    }
     _animationController.dispose();
     super.dispose();
   }
 
-  void _handleFocusChange(bool hasFocus) {
+  void _handleFocusChange() {
     setState(() {
-      _isFocused = hasFocus;
-      if (hasFocus) {
+      _isFocused = _focusNode.hasFocus;
+      if (_isFocused) {
         _animationController.forward();
       } else {
         _animationController.reverse();
@@ -98,7 +105,7 @@ class _AnimatedNameFieldState extends State<AnimatedNameField>
           child: TextFormField(
             controller: widget.controller,
             validator: widget.validator,
-            focusNode: widget.focusNode,
+            focusNode: _focusNode,
             onChanged: _validateInput,
             decoration: InputDecoration(
               labelText: 'Nome',
@@ -116,8 +123,6 @@ class _AnimatedNameFieldState extends State<AnimatedNameField>
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
             ),
-            onTap: () => _handleFocusChange(true),
-            onEditingComplete: () => _handleFocusChange(false),
           ),
         );
       },

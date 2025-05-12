@@ -18,17 +18,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     OnboardingPage(
       title: 'Bem-vindo ao FlowLogin',
       description: 'Sua plataforma de login segura e intuitiva',
-      image: Icons.security,
+      imagePath: 'assets/images/onboarding1.png',
     ),
     OnboardingPage(
       title: 'Interface Moderna',
       description: 'Design limpo e responsivo para melhor experiência',
-      image: Icons.phone_android,
+      imagePath: 'assets/images/onboarding2.png',
     ),
     OnboardingPage(
       title: 'Personalização',
-      description: 'Temas claro e escuro para seu conforto',
-      image: Icons.palette,
+      description: 'Digite seu nome para personalizar sua experiência',
+      imagePath: 'assets/images/onboarding3.png',
     ),
   ];
 
@@ -73,10 +73,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
-                          page.image,
-                          size: 120,
-                          color: Theme.of(context).colorScheme.primary,
+                        Image.asset(
+                          page.imagePath,
+                          width: 120,
+                          height: 120,
                         ),
                         const SizedBox(height: 32),
                         Text(
@@ -166,11 +166,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 class OnboardingPage {
   final String title;
   final String description;
-  final IconData image;
+  final String imagePath;
 
   OnboardingPage({
     required this.title,
     required this.description,
-    required this.image,
+    required this.imagePath,
   });
 }

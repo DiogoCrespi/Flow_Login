@@ -53,76 +53,93 @@ class _LoginScreenState extends State<LoginScreen> {
         ],
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(height: 32),
-                Icon(
-                  Icons.flutter_dash,
-                  size: 80,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                const SizedBox(height: 32),
-                LoginTextFormField(
-                  controller: _emailController,
-                  label: 'E-mail',
-                  hintText: 'Digite seu e-mail',
-                  keyboardType: TextInputType.emailAddress,
-                  prefixIcon: Icons.email_outlined,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor, digite seu e-mail';
-                    }
-                    if (!value.contains('@') || !value.contains('.')) {
-                      return 'Digite um e-mail válido';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 16),
-                LoginTextFormField(
-                  controller: _passwordController,
-                  label: 'Senha',
-                  hintText: 'Digite sua senha',
-                  obscureText: _obscurePassword,
-                  prefixIcon: Icons.lock_outline,
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _obscurePassword
-                          ? Icons.visibility_outlined
-                          : Icons.visibility_off_outlined,
-                    ),
-                    onPressed: _togglePasswordVisibility,
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(24.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 32),
+                  Image.asset(
+                    'assets/images/logo.png',
+                    width: 100,
+                    height: 100,
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor, digite sua senha';
-                    }
-                    if (value.length < 6) {
-                      return 'A senha deve ter pelo menos 6 caracteres';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 24),
-                ElevatedButton(
-                  onPressed: _handleLogin,
-                  child: const Text('Entrar'),
-                ),
-                const SizedBox(height: 16),
-                TextButton(
-                  onPressed: _handleRegister,
-                  child: const Text('Registrar-se'),
-                ),
-                TextButton(
-                  onPressed: _handleForgotPassword,
-                  child: const Text('Esqueci minha senha'),
-                ),
-              ],
+                  const SizedBox(height: 32),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: LoginTextFormField(
+                      controller: _emailController,
+                      label: 'E-mail',
+                      hintText: 'Digite seu e-mail',
+                      keyboardType: TextInputType.emailAddress,
+                      prefixIcon: Icons.email_outlined,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor, digite seu e-mail';
+                        }
+                        if (!value.contains('@') || !value.contains('.')) {
+                          return 'Digite um e-mail válido';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: LoginTextFormField(
+                      controller: _passwordController,
+                      label: 'Senha',
+                      hintText: 'Digite sua senha',
+                      obscureText: _obscurePassword,
+                      prefixIcon: Icons.lock_outline,
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscurePassword
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
+                        ),
+                        onPressed: _togglePasswordVisibility,
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor, digite sua senha';
+                        }
+                        if (value.length < 6) {
+                          return 'A senha deve ter pelo menos 6 caracteres';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: ElevatedButton(
+                      onPressed: _handleLogin,
+                      child: const Text('Entrar'),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: TextButton(
+                      onPressed: _handleRegister,
+                      child: const Text('Registrar-se'),
+                    ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: TextButton(
+                      onPressed: _handleForgotPassword,
+                      child: const Text('Esqueci minha senha'),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

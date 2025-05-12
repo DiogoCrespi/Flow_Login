@@ -77,11 +77,10 @@ class _SplashScreenState extends State<SplashScreen>
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Substitua pelo seu logo
-                      Icon(
-                        Icons.flutter_dash,
-                        size: 100,
-                        color: Theme.of(context).colorScheme.primary,
+                      Image.asset(
+                        'assets/images/logo.png',
+                        width: 100,
+                        height: 100,
                       ),
                       const SizedBox(height: 24),
                       Text(

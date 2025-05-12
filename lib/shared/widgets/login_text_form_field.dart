@@ -90,6 +90,18 @@ class _LoginTextFormFieldState extends State<LoginTextFormField>
                 color:
                     _isFocused ? Theme.of(context).colorScheme.primary : null,
               ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: const BorderSide(color: Colors.grey, width: 1),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 2),
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: const BorderSide(color: Colors.grey, width: 1),
+              ),
             ),
             onTap: () => _handleFocusChange(true),
             onEditingComplete: () => _handleFocusChange(false),
