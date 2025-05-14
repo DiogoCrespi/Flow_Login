@@ -2,6 +2,11 @@
 
 Um aplicativo Flutter moderno com splash screen animada, onboarding informativo, tela de login funcional e suporte a temas claro/escuro.
 
+## 🎥 Demonstração
+<div style="display: flex; justify-content: center;">
+  <img src="assets/animations/flowlogin.gif" width="300" alt="Demonstração do App">
+</div>
+
 ## Funcionalidades
 
 - Splash Screen nativa e animada com rotação da logo
@@ -77,6 +82,19 @@ Campo de nome animado para onboarding com:
 3. Onboarding (3 telas)
 4. Tela de Login
 5. Tela Inicial
+
+## 🖼️ Screenshots
+<div align="left">
+  <img src="assets/images/screenshots1.png" width="200" alt="screenshots 1">
+  <img src="assets/images/screenshots2.png" width="200" alt="screenshots 2">
+  <img src="assets/images/screenshots3.png" width="200" alt="screenshots 3">
+</div>
+<div align="left">
+  <img src="assets/images/screenshots4.png" width="200" alt="screenshots 4">
+  <img src="assets/images/screenshots5.png" width="200" alt="screenshots 5">
+  <img src="assets/images/screenshots6.png" width="200" alt="screenshots 6">
+  <img src="assets/images/screenshots7.png" width="200" alt="Welcome Screen">
+</div>
 
 ## Diferenciais
 

@@ -87,7 +87,7 @@ class _AnimatedNameFieldState extends State<AnimatedNameField>
               color: _isFocused
                   ? Theme.of(context).colorScheme.primary
                   : Colors.grey.withOpacity(0.3),
-              width: 2 * _borderAnimation.value,
+              width: _isFocused ? 2 : 1,
             ),
             boxShadow: _isFocused
                 ? [
