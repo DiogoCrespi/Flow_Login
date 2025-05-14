@@ -1,5 +1,7 @@
 # FlowLogin
 
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/DiogoCrespi/Flow_Login)
+
 Um aplicativo Flutter moderno com splash screen animada, onboarding informativo, tela de login funcional e suporte a temas claro/escuro.
 
 ## 🎥 Demonstração

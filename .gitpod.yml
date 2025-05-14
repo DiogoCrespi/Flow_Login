@@ -1,0 +1,14 @@
+image: gitpod/workspace-full
+
+tasks:
+  - name: Flutter
+    command: |
+      curl -fsSL https://flutter.dev/get-started/web | bash
+      export PATH="$PATH:$HOME/flutter/bin"
+      flutter doctor
+      flutter pub get
+      flutter run -d web-server --web-port 8080
+
+ports:
+  - port: 8080
+    onOpen: open-preview 
