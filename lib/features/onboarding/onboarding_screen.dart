@@ -12,6 +12,9 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   final TextEditingController _nameController = TextEditingController();
+  final FocusNode _nameFocusNode = FocusNode();
+  var _formKey = GlobalKey<FormState>();
+
   int _currentPage = 0;
 
   final List<OnboardingPage> _pages = [
@@ -45,12 +48,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     });
   }
 
+    bool isOnlyLetters(String s) {
+    final regex = RegExp(r'^[a-zA-Z]*$');
+    return regex.hasMatch(s);
+  }
+
   void _goToLogin() {
-    Navigator.of(context).pushReplacementNamed('/login');
+    if (_formKey.currentState!.validate()) {
+      Navigator.of(context).pushReplacementNamed('/login');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    _formKey = GlobalKey<FormState>();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Bem-vindo'),
@@ -97,18 +109,33 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         ),
                         if (index == _pages.length - 1) ...[
                           const SizedBox(height: 32),
-                          AnimatedNameField(
-                            controller: _nameController,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Por favor, digite seu nome';
-                              }
-                              if (value.length < 3) {
-                                return 'O nome deve ter pelo menos 3 caracteres';
-                              }
-                              return null;
-                            },
-                          ),
+                          Form(
+                            key: _formKey,
+                            child: Column(
+                              children: [
+                                AnimatedNameField(
+                                  controller: _nameController,
+                                  focusNode: _nameFocusNode,
+                                  validator: (value) {
+                                    print('value: $value');
+                                    if (value == null || value.isEmpty) {
+                                      return 'Por favor, digite seu nome';
+                                    }
+                                    if (value.length < 3) {
+                                      return 'O nome deve ter pelo menos 3 caracteres';
+                                    }
+                                    if (!isOnlyLetters(value)) {
+                                      print('entrou aqui 1');
+                                      return 'O nome deve conter apenas letras';                                 
+                                    }
+                                    return null;
+                                    
+                                  },
+                                ),
+                              ],
+                            )
+                          )
+                          
                         ],
                       ],
                     ),
