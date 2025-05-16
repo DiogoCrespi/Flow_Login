@@ -1,32 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'dart:io';
+import 'shared/controllers/auth_controller.dart';
+import 'shared/controllers/theme_controller.dart';
+import 'shared/database/database_helper.dart';
+import 'shared/repositories/user_repository.dart';
+import 'shared/themes/light_theme.dart';
+import 'shared/themes/dark_theme.dart';
 import 'features/splash/splash_screen.dart';
 import 'features/onboarding/onboarding_screen.dart';
 import 'features/login/login_screen.dart';
 import 'features/login/register_screen.dart';
 import 'features/login/forgot_password_screen.dart';
 import 'features/home/home_screen.dart';
-import 'shared/controllers/theme_controller.dart';
-import 'shared/themes/light_theme.dart';
-import 'shared/themes/dark_theme.dart';
 
 void main() async {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Inicializa o SQLite para desktop
+  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
+  }
 
   final prefs = await SharedPreferences.getInstance();
-  final themeController = ThemeController(prefs);
+  final databaseHelper = DatabaseHelper();
+  final userRepository = UserRepository(databaseHelper);
 
   runApp(
-    ChangeNotifierProvider.value(
-      value: themeController,
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => ThemeController(prefs),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => AuthController(userRepository),
+        ),
+      ],
       child: const MyApp(),
     ),
   );
-
-  FlutterNativeSplash.remove();
 }
 
 class MyApp extends StatelessWidget {
@@ -41,9 +56,9 @@ class MyApp extends StatelessWidget {
       theme: LightTheme.theme,
       darkTheme: DarkTheme.theme,
       themeMode: themeController.themeMode.value,
-      initialRoute: '/',
+      home: const SplashScreen(),
       routes: {
-        '/': (context) => const SplashScreen(),
+        '/splash': (context) => const SplashScreen(),
         '/onboarding': (context) => const OnboardingScreen(),
         '/login': (context) => const LoginScreen(),
         '/register': (context) => const RegisterScreen(),
