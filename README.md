@@ -105,3 +105,9 @@ Campo de nome animado para onboarding com:
 - Interface moderna e intuitiva
 - Transições suaves entre telas
 - Temas claro/escuro com persistência
+
+## 👥 Colaboradores
+
+- Fernando Zang
+- Diogo Vinicios Crespi
+- Ellyson Vissotto De Moura
