@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../shared/widgets/login_text_form_field.dart';
 import '../../shared/widgets/theme_toggle_button.dart';
+import 'package:sqflite/sqflite.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
