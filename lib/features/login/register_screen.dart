@@ -1,4 +1,8 @@
+import 'package:flowlogin/infra/db.dart';
+import 'package:flowlogin/models/user.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
+import 'package:uuid/uuid.dart';
 import '../../shared/widgets/login_text_form_field.dart';
 import '../../shared/widgets/theme_toggle_button.dart';
 import 'package:sqflite/sqflite.dart';
@@ -8,6 +12,7 @@ class RegisterScreen extends StatefulWidget {
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
+
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
@@ -18,6 +23,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _confirmPasswordController = TextEditingController();
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
+
+    
+  late Future<Database> database;
+
 
   @override
   void dispose() {
@@ -40,15 +49,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
     });
   }
 
-  void _handleRegister() {
-    if (_formKey.currentState?.validate() ?? false) {
-      // Implementar lógica de registro
-      Navigator.of(context).pushReplacementNamed('/home');
+  void _handleRegister() async {
+    if (_formKey.currentState!.validate()) {
+      final user = User(id: const Uuid().v4() ,name: _nameController.text, email: _emailController.text, password: _passwordController.text);
+
+      final db = await database;
+      db.insert(
+        'users',
+        user.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace
+      );
+      Navigator.of(this.context).pushReplacementNamed('/login');
     }
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    database = DB().open();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Registro'),
