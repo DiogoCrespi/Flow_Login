@@ -24,8 +24,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
 
-    
-  late Future<Database> database;
 
 
   @override
@@ -53,12 +51,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     if (_formKey.currentState!.validate()) {
       final user = User(id: const Uuid().v4() ,name: _nameController.text, email: _emailController.text, password: _passwordController.text);
 
-      final db = await database;
-      db.insert(
-        'users',
-        user.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace
-      );
+      UserRepository().insert(user);
+      
       Navigator.of(this.context).pushReplacementNamed('/login');
     }
   }
@@ -70,7 +64,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    database = DB().open();
 
     return Scaffold(
       appBar: AppBar(

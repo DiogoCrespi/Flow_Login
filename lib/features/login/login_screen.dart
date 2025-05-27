@@ -1,4 +1,7 @@
+import 'package:flowlogin/infra/db.dart';
+import 'package:flowlogin/models/user.dart';
 import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
 import '../../shared/widgets/login_text_form_field.dart';
 import '../../shared/widgets/theme_toggle_button.dart';
 
@@ -28,10 +31,33 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  void _handleLogin() {
-    if (_formKey.currentState?.validate() ?? false) {
-      // Implementar lógica de login
+  Future<bool> login() async{
+     User? user = await UserRepository().getUser(_emailController.text);
+     if (user != null) {
+      if(user.password==_passwordController.text) {
+        return true;
+      }
+      else {
+        return false;
+      }
+     }
+     return false;
+  }
+
+  void _handleLogin() async {
+    if (_formKey.currentState!.validate()) {
+     if(await login()) {
       Navigator.of(context).pushReplacementNamed('/home');
+     }
+     else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Usuário ou senha incorreto!'),
+          duration: Duration(seconds: 2),
+          backgroundColor: Color.fromARGB(157, 226, 1, 1),
+        ),
+      );
+     }      
     }
   }
 
