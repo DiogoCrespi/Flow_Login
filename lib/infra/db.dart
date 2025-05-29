@@ -29,6 +29,22 @@ class UserRepository{
     return null;
   }
 
+  Future<bool> emailExists(String email) async {
+    final user = await getUser(email);
+    return user != null;
+  }
+
+  Future<bool> updatePassword(String email, String newPassword) async {
+    final db = await database;
+    final result = await db.update(
+      'users',
+      {'password': newPassword},
+      where: 'email = ?',
+      whereArgs: [email],
+    );
+    return result > 0;
+  }
+
   open() async {
     database = openDatabase(
       join(await getDatabasesPath(), 'users.db'),
